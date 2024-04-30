@@ -2,7 +2,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import Image from "next/image";
 
-const logo = () => {
+const Logo = () => {
   return (
     <Box sx={{
         display: 'flex',
@@ -21,4 +21,4 @@ const logo = () => {
   )
 }
 
-export default logo
+export default Logo

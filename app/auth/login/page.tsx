@@ -1,6 +1,6 @@
 import { Box, Container, Paper, Typography } from '@mui/material'
 import React from 'react'
-import Logo from '@/Components/logo'
+import Logo from '@/src/components/Logo'
 
 const login = () => {
   return (

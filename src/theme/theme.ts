@@ -32,10 +32,9 @@ const theme = createTheme({
       primary: '#071D12',
     },
   },
-    typography: {
-      fontFamily: 'Poppins, sans-serif',
-      
-    },
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
+  },
 })
 
 export default theme;

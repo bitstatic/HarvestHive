@@ -1,7 +1,8 @@
-import { Box, Container, Paper, Typography } from '@mui/material'
+import { Box, Button, Container, Paper, Typography } from '@mui/material'
 import React from 'react'
 import Logo from '@/Components/logo'    
 import Image from 'next/image'
+import theme from '@/theme'
 
 const auth = () => {
   return (
@@ -14,10 +15,8 @@ const auth = () => {
         marginTop: '30vh',
         marginBottom: '20vh',
       }}>
-        <Image priority src="/logo.svg" alt="logo" width={155} height={155} />
-        <Typography variant="h1" sx={{
-          marginTop: '2rem',
-        }}>
+        <Image priority src="/Logo.svg" alt="logo" width={155} height={155} />
+        <Typography variant="h3" className=''>
           Harverst Hive
   	    </Typography>
       </Box>
