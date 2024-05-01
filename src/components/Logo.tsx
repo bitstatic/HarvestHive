@@ -5,7 +5,7 @@ import Image from 'next/image'
 const Logo = () => {
   return (
     <Box className="flex flex-col gap-4 justify-center items-center">
-      <Image priority src="/logo.svg" alt="logo" width={64} height={64} />
+      <Image priority src="/Logo.svg" alt="logo" width={64} height={64} />
       <Typography
         variant="h4"
         gutterBottom
