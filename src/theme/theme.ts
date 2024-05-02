@@ -29,7 +29,9 @@ const theme = createTheme({
       paper: '#F4FEF8',
     },
     text: {
-      primary: '#071D12',
+      primary: '#04110BDE',
+      secondary: '#04110B8A',
+      disabled: '#04110B61',
     },
   },
   typography: {

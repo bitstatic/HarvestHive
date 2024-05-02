@@ -1,0 +1,39 @@
+export interface Orders {
+  productID: string
+  seller: string
+  bidPrice?: number
+  buyPrice?: number
+  status: string
+  OrderQuantity: number
+  PickupDate: string
+}
+
+export interface LastUserBids {
+  userID: string
+  user: string
+  bids: Orders[]
+}
+
+export interface seller {
+  id: string
+  name: string
+  email: string
+}
+
+export interface Listings {
+  listingID: string
+  title: string
+  type: string
+  status: string
+  thumbnailURL?: string
+  listedbuy: number
+  highestBid?: number
+  MSP: number
+  listedQuantity: number
+  soldQuantity?: number
+  PickupDate: string
+  hasMyBid?: boolean
+  myOrders?: Orders
+  seller: seller
+  sellerEarning?: number
+}
