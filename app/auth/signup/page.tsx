@@ -58,22 +58,32 @@ const signup = () => {
 
 
   const onSubmit = async (data: FormFields) => {
+    
+    // Registering the User 
     try{
 
       let newdata: any = data;
       newdata.role = value;
       console.log(newdata)
 
-    //   const response = await fetch('/api/users/signup', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data),
-    //   })
+      const response = await fetch('/api/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newdata),
+      })
 
-    //   const responseData = await response.json()
-    //   console.log(responseData)
+      const responseData = await response.json()
+      console.log(responseData)
+
+      if (response.ok) {
+        
+        console.log('User Created')
+      } else {
+        
+        console.log('Error')
+      }
 
     } catch (error: any) {
       console.log(error)
@@ -85,7 +95,7 @@ const signup = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value)
   }
-  console.log(value)
+  // console.log(value)
 
   const [activeStep, setActiveStep] = React.useState(true)
 
