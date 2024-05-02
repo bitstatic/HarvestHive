@@ -1,6 +1,18 @@
 import mongoose from 'mongoose';
 // import uniqueValidator from 'mongoose-unique-validator';
 
+interface IPayment {
+    user: mongoose.Schema.Types.ObjectId;
+    order: mongoose.Schema.Types.ObjectId;
+    amount: number;
+    paymentMethod: string;
+    status: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+
+
 const PaymentSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -18,12 +30,12 @@ const PaymentSchema = new mongoose.Schema({
     },
     paymentMethod: {
         type: String,
-        enum: ['credit_card', 'paypal', 'cash_on_delivery'],
+        enum: ['credit_card', 'upi', 'cash_on_delivery'],
         required: true
     },
     status: {
         type: String,
-        enum: ['pending', 'completed', 'failed'],
+        enum: ['pending', 'success', 'failed'],
         default: 'pending'
     },
     createdAt: {
