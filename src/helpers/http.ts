@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { cookies } from 'next/headers'
-import { deleteSession } from '../util/session'
+import { deleteSession } from '@/src/util/session/session'
 class HttpHelper {
   static cookies = cookies()
   static getBackendApiUrl = () => {

@@ -16,16 +16,16 @@ import React from 'react'
 import Logo from '@/src/components/Logo'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { any, z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { clear } from 'console'
 
 const schema = z.object({
-  username: z
+  fullName: z
     .string()
     .min(3, { message: 'Username must be at least 3 characters' })
-    .max(20, { message: 'Username must be at most 20 characters' }),
+    .max(30, { message: 'Username must be at most 20 characters' }),
   email: z.string().email({ message: 'Enter valid email' }),
   PhoneNumber: z
     .string()
@@ -38,6 +38,9 @@ const schema = z.object({
   confirmPassword: z
     .string()
     .min(8, { message: 'Password must be at least 8 characters' }),
+  // role: z
+  //   .enum(['Farmer', 'Business Firm'])
+
 })
 
 type FormFields = z.infer<typeof schema>
@@ -52,10 +55,26 @@ const signup = () => {
     resolver: zodResolver(schema),
   })
 
+
+
   const onSubmit = async (data: FormFields) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      console.log(data)
+    try{
+
+      let newdata: any = data;
+      newdata.role = value;
+      console.log(newdata)
+
+    //   const response = await fetch('/api/users/signup', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(data),
+    //   })
+
+    //   const responseData = await response.json()
+    //   console.log(responseData)
+
     } catch (error: any) {
       console.log(error)
     }
@@ -90,16 +109,16 @@ const signup = () => {
           <Box className="w-full flex flex-col items-center gap-4">
             <Box className="w-full">
               <TextField
-                {...register('username')}
+                {...register('fullName')}
                 label="Name"
-                type="username"
-                error={errors.username ? true : false}
+                type="fullName"
+                error={errors.fullName ? true : false}
                 variant="outlined"
                 fullWidth
               />
-              {errors.username && (
+              {errors.fullName && (
                 <Typography color="error" variant="caption" className="w-full">
-                  {errors.username.message}
+                  {errors.fullName.message}
                 </Typography>
               )}
             </Box>

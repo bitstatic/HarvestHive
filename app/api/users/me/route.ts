@@ -1,7 +1,7 @@
 import { connectToDB } from '@/database/dbConfig/dbConfig'
 import User from '@/database/models/userModel';
 import { NextRequest, NextResponse } from 'next/server';
-import { decrypt } from '@/src/util/session';
+import { decrypt } from '@/src/util/session/session';
 
 connectToDB();
 

@@ -105,4 +105,4 @@ const ProductSchema = new mongoose.Schema({
 
 const Product = mongoose.model<IProduct>('Product', ProductSchema)
 
-module.exports = Product
+export default Product;

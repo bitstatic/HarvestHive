@@ -4,8 +4,6 @@ interface IUser {
   username: string
   email: string
   password: string
-  firstName: string
-  lastName: string
   fullName: string
   age: number
   gender: string
@@ -39,7 +37,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
       minlength: 3,
-      maxlength: 20,
+      maxlength: 25,
     },
     email: {
       type: String,
@@ -50,11 +48,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide a password'],
     },
-    firstName: {
-      type: String,
-      default: '',
-    },
-    lastName: {
+    fullName: {
       type: String,
       default: '',
     },
@@ -78,8 +72,8 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['customer', 'farmer', 'admin'],
-      default: 'customer',
+      enum: ['Bussiness Firm', 'Farmer', 'admin'],
+      default: 'Farmer',
     },
     avatar: {
       type: String,

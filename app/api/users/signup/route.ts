@@ -3,7 +3,7 @@ import User from '@/database/models/userModel'
 import { NextRequest, NextResponse } from 'next/server'
 import bcryptjs from 'bcryptjs'
 import { sendEmail } from '@/src/util/mailer'
-import { Phone } from '@mui/icons-material'
+import generateUsername from '@/src/util/generateDefaultUserName'
 
 connectToDB()
 
@@ -11,15 +11,15 @@ export async function POST(request: NextRequest, response: NextResponse) {
   try {
     const reqbody = await request.json()
     const {
-      username,
+      fullName,
       email,
       password,
-      firstName,
-      lastName,
       dateOfBirth,
       role,
-      phone,
+      PhoneNumber,
     } = reqbody
+
+    // console.log(reqbody)
 
     const user = await User.findOne({ email })
     if (user) {
@@ -37,18 +37,19 @@ export async function POST(request: NextRequest, response: NextResponse) {
     const hashedPassword = await bcryptjs.hash(password, salt)
 
     const newUser = new User({
-      username,
+      username: generateUsername(email),
       email,
       password: hashedPassword,
-      firstName: firstName ? firstName : '',
-      lastName: lastName ? lastName : '',
+      fullName: fullName ? fullName : '',
       dateOfBirth: dateOfBirth ? dateOfBirth : null,
-      role: role ? role : 'customer',
-      phone: phone ? phone : '',
+      role: role ? role : 'Farmer',
+      phone: PhoneNumber ? PhoneNumber : '',
     })
 
+    // console.log(newUser);
+
     const savedUser = await newUser.save()
-    console.log(savedUser)
+    // console.log(savedUser)
 
     // Send verification email to user
     const SentEmail = await sendEmail({
@@ -70,7 +71,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       savedUser.emailVerificationTokenSentAt = Date.now()
       savedUser.emailConfirmTokenSentCount += 1
       await savedUser.save()
-      console.log(SentEmail)
+      // console.log(SentEmail)
     }
 
     const sendUser = {
