@@ -3,6 +3,7 @@ export interface Orders {
   seller: string
   bidPrice?: number
   buyPrice?: number
+  productTitle?: string
   status: string
   OrderQuantity: number
   PickupDate: string
@@ -10,7 +11,7 @@ export interface Orders {
 
 export interface LastUserBids {
   userID: string
-  user: string
+  // user: string
   bids: Orders[]
 }
 

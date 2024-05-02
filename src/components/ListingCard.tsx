@@ -16,9 +16,12 @@ const ListingCard = ({
   // listings are passed from parent component
   return (
     <Card
+      elevation={0}
       className="p-2 gap-2 items-center"
       sx={{
         display: 'flex',
+        border: 1,
+        borderColor: 'text.disabled'
       }}
     >
       <Box
