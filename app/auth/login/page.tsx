@@ -3,7 +3,6 @@
 import {
   Box,
   Button,
-  InputAdornment,
   Paper,
   TextField,
   Typography,
@@ -11,8 +10,7 @@ import {
 import React from 'react'
 import Logo from '@/src/components/Logo'
 import Link from 'next/link'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import {set, useForm} from 'react-hook-form'
+import {useForm} from 'react-hook-form'
 import {z} from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -25,17 +23,17 @@ type FormFields = z.infer<typeof schema>
 
 const login = () => {
 
-  const {register, handleSubmit,setError,formState:{ errors , isSubmitting }} = useForm<FormFields>({
+  const {register, handleSubmit,setError,formState:{ errors }} = useForm<FormFields>({
     resolver: zodResolver(schema),
   });
 
   const onSubmit = async (data: FormFields) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // await new Promise((resolve) => setTimeout(resolve, 1000))
       console.log(data)
-    } catch (error) {
-      // setError('email', {message: 'Invalid email'})
-      // setError('password', {message: 'Invalid password'})
+    } catch (error : any) {
+      setError('email', {message: error.message})
+      setError('password', {message: error.message})
     }
   }
 
@@ -59,13 +57,13 @@ const login = () => {
             className="w-full flex flex-col items-center gap-4"
           >
             <Box className='w-full'>
-              <TextField {...register("email")} label="email" type='email' error={errors.email?true:false} variant="outlined" fullWidth />
+              <TextField {...register("email")} label="Email" type='email' error={errors.email?true:false} variant="outlined" fullWidth />
               {errors.email && (
                 <Typography color='error' variant='caption' className='w-full'>{errors.email.message}</Typography>
               )}
             </Box>
             <Box className='w-full'>
-              <TextField {...register("password")} label="password" type='password' error={errors.password?true:false} variant="outlined" fullWidth />
+              <TextField {...register("password")} label="Password" type='password' error={errors.password?true:false} variant="outlined" fullWidth />
               {errors.password && (
                 <Typography color='error' variant='caption' className='w-full'>{errors.password.message}</Typography>
               )}
@@ -81,7 +79,7 @@ const login = () => {
           </Box>
         </Box>
         
-        <Link href="#">
+        <Link href="/auth/signup">
           <Typography variant="body2">
             Don't have an account? Sign up
           </Typography>
