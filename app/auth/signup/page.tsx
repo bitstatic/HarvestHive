@@ -19,12 +19,12 @@ import {useForm} from 'react-hook-form'
 import {z} from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { clear } from 'console';
 
 const schema = z.object({
   username: z.string().min(3, {message: 'Username must be at least 3 characters'}).max(20, {message: 'Username must be at most 20 characters'}),
   email: z.string().email({message: 'Enter valid email'}),
   PhoneNumber: z.string().min(10, {message: 'Phone number must be at least 10 characters'}).length(10, {message: 'Phone number must be exactly 10 characters'}).regex(/^[0-9]*$/, {message: 'Phone number must contain only numbers'}),
-  DateOfBirth : z.string(),
   password: z.string().min(8, {message: 'Password must be at least 8 characters'}),
   confirmPassword: z.string().min(8, {message: 'Password must be at least 8 characters'}),
 })
@@ -51,7 +51,7 @@ const signup = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
-  // console.log(value)
+  console.log(value)
 
   const [activeStep, setActiveStep] = React.useState(true);
   
@@ -73,7 +73,7 @@ const signup = () => {
             onSubmit={handleSubmit(onSubmit)}
             className='center-col gap-6 w-full'
         >
-          {activeStep && <Box
+          <Box
             className="w-full flex flex-col items-center gap-4"
           >
             <Box className='w-full'>
@@ -95,12 +95,18 @@ const signup = () => {
               )}
             </Box>
             <Box className='w-full'>
-              {/* <DatePicker label="Basic date picker" /> */}
-              <TextField {...register("DateOfBirth")}  type='date' error={errors.DateOfBirth?true:false} variant="outlined" fullWidth />
-              {errors.DateOfBirth && (
-                <Typography color='error' variant='caption' className='w-full'>{errors.DateOfBirth.message}</Typography>
+              <TextField {...register("password")} label="password" type='password' error={errors.password?true:false} variant="outlined" fullWidth />
+              {errors.password && (
+                <Typography color='error' variant='caption' className='w-full'>{errors.password.message}</Typography>
               )}
             </Box>
+            <Box className='w-full'>
+              <TextField {...register("confirmPassword")} label="Confirm Password" type='password' error={errors.confirmPassword?true:false} variant="outlined" fullWidth />
+              {errors.confirmPassword && (
+                <Typography color='error' variant='caption' className='w-full'>{errors.confirmPassword.message}</Typography>
+              )}
+            </Box>
+          </Box>
             <FormControl>
               <RadioGroup
                 row
@@ -115,24 +121,6 @@ const signup = () => {
                 <FormControlLabel value="Business Firm" control={<Radio />} label="Business Firm" />
               </RadioGroup>
             </FormControl>
-          </Box>}
-
-            {!activeStep && <Box 
-              className="w-full flex flex-col items-center gap-4"
-            > 
-              <Box className='w-full'>
-                <TextField {...register("password")} label="password" type='password' error={errors.password?true:false} variant="outlined" fullWidth />
-                {errors.password && (
-                  <Typography color='error' variant='caption' className='w-full'>{errors.password.message}</Typography>
-                )}
-              </Box>
-              <Box className='w-full'>
-                <TextField {...register("confirmPassword")} label="Confirm Password" type='password' error={errors.confirmPassword?true:false} variant="outlined" fullWidth />
-                {errors.confirmPassword && (
-                  <Typography color='error' variant='caption' className='w-full'>{errors.confirmPassword.message}</Typography>
-                )}
-              </Box>
-            </Box>}
 
           <Box className="center-col gap-2.5">
             <Button type='submit' variant="contained" className="w-fit" endIcon={<ArrowForwardIcon />} >
