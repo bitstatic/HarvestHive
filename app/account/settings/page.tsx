@@ -40,7 +40,7 @@ const page = () => {
           />
           <Typography variant='h5' color={'Background'} gutterBottom>{userData.name}</Typography>
         </Box>
-        <Box bgcolor={'background.default'} className='w-screen grow rounded-t-[1rem] flex flex-col gap-4 justify-start items-center p-4 gap-4'>
+        <Box bgcolor={'background.default'} className='w-screen grow rounded-t-[1rem] flex flex-col justify-start items-center p-4 gap-4'>
           <Link href='/account/settings/edit' className='w-full '>
             <Paper
               elevation={0}

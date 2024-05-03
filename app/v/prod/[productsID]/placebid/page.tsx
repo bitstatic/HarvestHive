@@ -1,8 +1,13 @@
+"use client"
+
 import AppbarWMenu from '@/src/components/appbars/AppbarWMenu'
 import { Listings } from '@/src/Interfaces'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Avatar, Box, Button, Paper, TextField, Typography } from '@mui/material'
 import App from 'next/app'
 import React from 'react'
+import { useForm } from 'react-hook-form'
+import {z} from 'zod'
 
 const serverData: Listings = {
   listingID: '1',
@@ -35,7 +40,22 @@ const serverData: Listings = {
   },
 }
 
-const page = async () => {
+const schema = z.object({
+  amount : z.string().nonempty({ message: 'Amount is required'}).regex(/^\d+$/, { message: 'Amount should be a postive number'}).min(1, { message: 'Amount should be a postive number'}),
+  yourbid : z.string().nonempty({ message: 'Amount is required'}).regex(/^\d+$/, { message: 'Amount should be a postive number'}).min(1, { message: 'Amount should be a postive number'}),
+})
+
+type FormFields = z.infer<typeof schema>
+
+const page = async()=>{
+
+    const { register, handleSubmit, formState: { errors } } = useForm<FormFields>({
+      resolver: zodResolver(schema),
+    })
+
+    const onSubmit = async(data: FormFields) => {
+      console.log(data);
+    }
   let productData: Listings
   // fetching Data from server
   // try {
@@ -69,12 +89,16 @@ const page = async () => {
         <Typography variant='body2'>
           Mandi Samiti, Raghogarh
         </Typography>
-        <Typography variant='body2'>
-          Pickup Date
-        </Typography>
-        <Typography variant='body1'>
-          2022-12-31
-        </Typography>
+        
+        <Box className='border-2 border-gray-400 p-4 mt-2 mb-2 w-full flex justify-between items-center'>
+          <Typography variant='body1'>
+            Last Highest Bid
+          </Typography>
+          <Typography variant='body1'>
+          ₹ 450 /U
+          </Typography>
+        </Box>
+
         <Box className='border-2 border-gray-400 p-4 mt-2 mb-2 w-full flex justify-between items-center'>
           <Typography variant='body1'>
             STOCK
@@ -93,14 +117,42 @@ const page = async () => {
           </Typography>
           <Paper className='p-1'>₹ 500 /U</Paper>
         </Box>
-        <Box className='p-4 mt-10 w-full flex justify-between items-center'>
-            <Button variant='outlined' color='primary' href='#'>
-              BUY NOW
-            </Button>
-            <Button variant='contained' color='primary' href='#'>
-              PLACE BID
-            </Button>
-        </Box>
+        <Paper className='p-4 gap-4 cener-col w-full'>
+            <Box
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                className="center-col gap-4 w-full"
+              >
+                <Box className="w-full">
+                  <TextField
+                    {...register('amount')}
+                    label="Amount"
+                    type="number"
+                    variant="outlined"
+                    fullWidth
+                    error={errors.amount ? true : false}
+                    helperText={errors.amount ? errors.amount.message : ''}
+                  />
+                </Box>
+                <Box className="w-full">
+                  <TextField
+                    {...register('yourbid')}
+                    label="Your Bid"
+                    type="number"
+                    variant="outlined"
+                    fullWidth
+                    error={errors.yourbid ? true : false}
+                    helperText={errors.yourbid ? errors.yourbid.message : ''}
+                />
+                </Box>
+                <Box className='w-full flex gap-4 justify-end'>
+                    <Button type='submit' variant='contained' color='primary' >
+                      PLACE BID
+                    </Button>
+                </Box>
+            </Box>
+        </Paper>
+
       </Box>
     </>
   )
