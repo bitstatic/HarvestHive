@@ -26,6 +26,7 @@ const AppbarWMenu = ({
   startIcon,
   startHref,
   endHref,
+  noElevation,
   primaryOption='drawer',
 }: {
   title: string
@@ -33,6 +34,7 @@ const AppbarWMenu = ({
   endIcon?: React.ReactNode
   startHref?: string
   endHref?: string
+  noElevation?: boolean
   primaryOption?: 'drawer' | 'back' | 'home'
 }) => {
   const [open, setOpen] = useState(false);
@@ -94,7 +96,7 @@ const AppbarWMenu = ({
   ]
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} className='h-[75%] p-4 flex flex-col items-start justify-center' role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ minWidth: 250 }} className='h-[75%] p-4 flex flex-col items-start justify-center' role="presentation" onClick={toggleDrawer(false)}>
       <Box className="flex flex-col gap-4 justify-center items-start">
         <Image priority src="/Logo.svg" alt="logo" width={64} height={64} />
         <Typography
@@ -130,7 +132,7 @@ const AppbarWMenu = ({
 
   // const theme = useTheme();
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" elevation={noElevation?0:undefined} >
       <Toolbar>
       {primaryOption=='drawer' && <IconButton
         onClick={toggleDrawer(true)}
@@ -148,6 +150,16 @@ const AppbarWMenu = ({
 
         {primaryOption=='back' && <IconButton
           onClick={()=>{router.back()}}
+          size="large"
+          edge="start"
+          color="inherit"
+          sx={{ mr: 2 }}
+        >
+          <ArrowBackIcon />
+        </IconButton>}
+
+        {primaryOption=='home' && <IconButton
+          onClick={()=>{router.push(`/${role}/dash/`)}}
           size="large"
           edge="start"
           color="inherit"

@@ -34,8 +34,8 @@ const page = () => {
     const handleClose = () => setOpen(false);
     
     const onSubmit = async(data: FormFields) => {
+      console.log(data);
         handleOpen();
-        console.log(data);
     }
 
   return (
