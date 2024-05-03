@@ -11,7 +11,7 @@ const page = () => {
   
   const userData ={
     userID: '123456',
-    accType: 'Farmer',
+    accType: 'f',
     name: 'John Doe',
     email: 'johndoe@foofoo.com',
     phone: '1234567890',
@@ -36,7 +36,7 @@ const page = () => {
               // margin: 'auto',
               // marginTop: 10 
             }}
-            src={'/farmerAvatarPlaceHolder.png'}
+            src={userData.accType=='f'?'/farmerAvatarPlaceHolder.png':'/vendorAvatarPlaceHolder.png'}
           />
           <Typography variant='h5' color={'Background'} gutterBottom>{userData.name}</Typography>
         </Box>
@@ -56,7 +56,7 @@ const page = () => {
               </Box>
               <Box className='flex px-1 justify-between items-center'>
                 <Typography variant='subtitle1' color={'text.primary'} >Account Type</Typography>
-                <Typography variant='subtitle1' color={'text.secondary'}>{userData.accType}</Typography>
+                <Typography variant='subtitle1' color={'text.secondary'}>{userData.accType=='f'?'Farmer':'Vendor'}</Typography>
               </Box>
               <Divider />
               <Box className='flex px-1 justify-between items-center'>

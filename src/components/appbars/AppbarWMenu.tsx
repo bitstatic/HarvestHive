@@ -114,7 +114,7 @@ const AppbarWMenu = ({
         {(role=='f'?farmerDrawerOptions:vendorDrawerOptions).map((item, index) => (
           <Box key={index} className='w-full'>
           <ListItem key={index} className='w-full' disablePadding>
-            <Link href={item.href}>
+            <Link href={item.href} className='w-full'>
               <ListItemButton 
                 sx={{
                   '&:hover': {

@@ -1,14 +1,9 @@
-import AppbarWMenu from '@/src/components/appbars/AppbarWMenu'
+import { Paper, Typography } from '@mui/material'
+import React from 'react'
+import ListingCard from '../ListingCard'
 import { Listings } from '@/src/Interfaces'
-import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'
-import React, { Suspense } from 'react'
-import MessageIcon from '@mui/icons-material/Message';
-import ListingCard from '@/src/components/ListingCard';
-import CurrentlyListed from '@/src/components/lists/CurrentlyListed';
-import ListsSkeleton from '@/src/components/skeletons/ListsSkeleton';
-import SoldList from '@/src/components/lists/SoldList';
 
-const demoDataArray: Listings[] = [
+const serverData: Listings[] = [
   {
     listingID: '1',
     title: 'Demo Listing',
@@ -130,41 +125,29 @@ const demoDataArray: Listings[] = [
     },
   }
 ]
-const page = () => {
+
+
+const SoldList = async () => {
+  let demoDataArray: Listings[]
+  try {
+    await new Promise((resolve, reject) => setTimeout(resolve, 4000))
+    demoDataArray = serverData;
+  } catch {
+    demoDataArray = []
+  }
+
   return (
-    <>
-    <AppbarWMenu
-      title="Previous Orders"
-      primaryOption='back'
-    />
-    <Box
-      className='flex flex-col mt-8 gap-4 items-center'
-    >
-      <Avatar alt='Demo Seller' src='/ListingPlaceholder.png' sx={{ width: 57, height: 57 }} />
-      <Typography variant='h4'>
-        Shyamu Dodaria
-      </Typography>
-      <Rating defaultValue={3} readOnly />
-      <Button variant='outlined' color='primary' href='#' endIcon={<MessageIcon/>}>
-        CONTACT 
-      </Button>
-    </Box>
-
-    <Box className="w-screen p-4 flex flex-col items-center  gap-4 ">
-      {/* on sale */}
-      <Suspense fallback={<ListsSkeleton />}>
-        <CurrentlyListed />
-      </Suspense>
-
-
-      {/* Sold stock */}
-      <Suspense fallback={<ListsSkeleton />}>
-        <SoldList />
-      </Suspense>
-    </Box>
-
-    </>
+    <Paper className='p-3 gap-2 w-full' sx={{
+      display: 'flex',
+      flexDirection: 'column',
+    }
+  }>
+    <Typography variant='h5' gutterBottom>Crops Sold </Typography>
+    {demoDataArray.map((listingData, index) => (
+      <ListingCard key={index} listingData={listingData} variant={'farmer'} sold />
+    ))}
+    </Paper>
   )
 }
 
-export default page
+export default SoldList
