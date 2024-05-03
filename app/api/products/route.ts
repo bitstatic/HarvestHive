@@ -1,36 +1,68 @@
 import { connectToDB } from '@/database/dbConfig/dbConfig'
 import  Product  from '@/database/models/productModel';
-import { NextRequest } from 'next/server';
+import { decrypt } from '@/src/util/session/session';
+import mongoose from 'mongoose';
+import { NextRequest, NextResponse } from 'next/server';
 
 connectToDB();
 
-export async function GET() {
+export async function GET(request : NextRequest) {
     try {
+
         const products = await Product.find({}).select("-createdAt -updatedAt");
-        return { products: products };
+
+        if (!products) {
+            return NextResponse.json({ error: "Products not found" }, { status: 404, statusText: "Not Found" });
+        }
+
+        console.log(products);
+
+        return NextResponse.json(products, { status: 200, statusText: "OK" });
+
     } catch (error: any) {
-        return { error: error.message };
+        console.log(error);
+        return NextResponse.json({ error: error.message }, { status: 500, statusText: "Internal Server Error" });
     }
 }
 
-export async function POST(request: NextRequest) {
+
+export  async function POST(request: NextRequest) {
     try {
+        
         const reqbody = await request.json();
-        const { name, description, price, quantity, category } = reqbody;
 
-        const product = new Product({
-            name,
-            description,
-            price,
-            quantity,
-            category
-        });
+        console.log(reqbody);
 
-        const savedProduct = await product.save();
-        console.log(savedProduct);
+        const { keyword } = reqbody;
 
-        return { message: "Product Added Successfully", success: true };
-    } catch (error: any) {
-        return { error: error.message };
+        const keywordsArray = keyword.split(" ");
+        console.log(keyword);
+
+        const keywordQueries = keywordsArray.map((word :string) => ({
+        $or: [
+            { name: { $regex: word, $options: 'i' } },
+            { description: { $regex: word, $options: 'i' } },
+            { category: { $regex: word, $options: 'i' } },
+            { address: { $regex: word, $options: 'i' } },
+        ]
+        }));
+
+        const products = await Product.find({
+            $or: keywordQueries
+        }).select("-createdAt -updatedAt");
+
+
+        if (!products) {
+            return NextResponse.json({ error: "Products not found" }, { status: 404, statusText: "Not Found" });
+        }
+
+        console.log(products);
+
+        return NextResponse.json(products, { status: 200, statusText: "OK" });
+
+
+    }
+    catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500, statusText: "Internal Server Error" });
     }
 }

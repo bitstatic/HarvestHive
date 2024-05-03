@@ -1,5 +1,6 @@
 export interface Orders {
   productID: string
+  productTitle: string
   seller: string
   bidPrice?: number
   buyPrice?: number
@@ -12,7 +13,7 @@ export interface Orders {
 export interface LastUserBids {
   userID: string
   // user: string
-  bids: Orders[]
+  orders: Orders[]
 }
 
 export interface seller {

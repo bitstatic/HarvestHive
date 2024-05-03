@@ -8,11 +8,10 @@ interface IProduct {
   quantity: number
   category: string
   images: string[]
-  cropType: string
   address: {
     city: string
     state: string
-    postalCode: string
+    pinCode: string
   }
   harvestDate: Date
   organic: boolean
@@ -50,15 +49,10 @@ const ProductSchema = new mongoose.Schema({
   images: {
     type: [String], // Array of image URLs
   },
-  cropType: {
-    type: String,
-    required: true,
-  },
   address: {
     city: { type: String },
     state: { type: String },
-    postalCode: { type: String },
-    required: [true, 'Please provide an address'],
+    pinCode: { type: String },
   },
   harvestDate: {
     type: Date,
@@ -77,32 +71,8 @@ const ProductSchema = new mongoose.Schema({
     default: Date.now,
   },
 
-  // Ratings
-
-  // rating: {
-  //     type: Number,
-  //     default: 0
-  // },
-  // numReviews: {
-  //     type: Number,
-  //     default: 0
-  // },
-  // reviews: [
-  //     {
-  //         user: {
-  //             type: mongoose.Schema.Types.ObjectId,
-  //             ref: 'User'
-  //         },
-  //         rating: {
-  //             type: Number,
-  //             required: true,
-  //             min: 1,
-  //             max: 5,
-  //         },
-  //     }
-  // ],
 })
 
-const Product = mongoose.model<IProduct>('Product', ProductSchema)
+const Product = mongoose.models.products || mongoose.model('products', ProductSchema) 
 
 export default Product;

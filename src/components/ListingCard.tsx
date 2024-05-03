@@ -21,7 +21,7 @@ const ListingCard = ({
       sx={{
         display: 'flex',
         border: 1,
-        borderColor: 'text.disabled'
+        borderColor: 'divider'
       }}
     >
       <Box
@@ -52,7 +52,7 @@ const ListingCard = ({
           <Typography variant="caption">{listingData.seller.name}</Typography>
         )}
         {variant == 'farmer' && (
-          <Typography variant="caption">
+          <Typography variant="subtitle2">
             Delivery: {listingData.PickupDate}
           </Typography>
         )}

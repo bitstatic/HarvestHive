@@ -42,7 +42,7 @@ const page = () => {
     <>
     <AppbarWMenu
       title="Add Listing"
-      startIcon={<ArrowBackIcon />}
+      primaryOption='back'
     />
     <Box
       maxWidth="sm"

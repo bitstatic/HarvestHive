@@ -1,7 +1,15 @@
+import AppbarWMenu from '@/src/components/appbars/AppbarWMenu'
 import React from 'react'
 
 const page = () => {
-  return <h1>Dashboard Farmer</h1>
+  return (
+    <>
+      <AppbarWMenu
+        title="Dashboard"
+        primaryOption="drawer"
+      />
+    </>
+  )
 }
 
 export default page

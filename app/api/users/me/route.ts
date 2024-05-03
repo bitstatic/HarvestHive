@@ -5,11 +5,16 @@ import { decrypt } from '@/src/util/session/session';
 
 connectToDB();
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
 
     try {
         // Extract Data from Token
         const token = request.cookies.get("token")?.value || "";
+
+        if(!token) {
+            return NextResponse.json({ error: "No token found" }, { status: 400, statusText: "Bad Request"});
+        }
+
 
         const SessionPayload:any = await decrypt(token).then((data)=>{return data});
 

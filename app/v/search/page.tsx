@@ -135,13 +135,11 @@ const page = () => {
     <>
     <AppbarWMenu
       title="HarvestHive"
-      startIcon={<MenuRoundedIcon />}
-      endIcon={<SearchRoundedIcon />}
-      endHref="/v/dash/search"
+      primaryOption='drawer'
     />
-    <Box className="w-screen">
+    <Box className="w-screen p-4">
       <Typography variant='h5' className='p-4'>Search Result: </Typography>
-      <Paper className='p-4 gap-2' sx={{
+      <Paper className='p-3 gap-2' sx={{
           display: 'flex',
           flexDirection: 'column',
         }

@@ -26,11 +26,11 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     console.log('Email token: ', hashedToken)
 
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST!,
-      port: parseInt(process.env.SMTP_PORT!),
+      host: process.env.SMTP_HOST_PROD!,
+      port: parseInt(process.env.SMTP_PORT_PROD!),
       auth: {
-        user: process.env.SMTP_USER!,
-        pass: process.env.SMTP_PASS!,
+        user: process.env.SMTP_USER_PROD!,
+        pass: process.env.SMTP_PASS_PROD!,
       },
     })
 

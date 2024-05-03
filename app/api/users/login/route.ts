@@ -3,18 +3,19 @@ import User from '@/database/models/userModel'
 import bcryptjs from 'bcryptjs'
 import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
+import { encrypt } from '@/src/util/session/session'
 
 connectToDB()
 
 export async function POST(request: NextRequest) {
   try {
     const reqbody = await request.json()
-    const { username, email, password } = reqbody
+    const { email, password } = reqbody
 
-    console.log('ReqBody' + reqbody)
+    // console.log('ReqBody')
+    // console.log(reqbody)
 
-    const user =
-      (await User.findOne({ email })) || (await User.findOne({ username }))
+    const user = await User.findOne({ email });
 
     if (!user) {
       return NextResponse.json(
@@ -22,6 +23,8 @@ export async function POST(request: NextRequest) {
         { status: 400, statusText: 'Not Found' }
       )
     }
+
+    // console.log(user)
 
     const validPassword = await bcryptjs.compare(password, user.password)
 
@@ -32,15 +35,15 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // console.log(validPassword)
+
     const tokenPayload = {
       id: user._id,
-      username: user.username,
       email: user.email,
     }
 
-    const token = await jwt.sign(tokenPayload, process.env.JWT_SECRET!, {
-      expiresIn: '12h',
-    })
+    const token = await encrypt(tokenPayload);
+
     console.log('jwt token: ' + token)
 
     const response = NextResponse.json(
