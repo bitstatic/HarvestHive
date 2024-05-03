@@ -145,13 +145,13 @@ const page = () => {
       </Typography>
       <Rating name="half-rating-read" defaultValue={3.5} precision={0.5} readOnly />
     </Box>
-    <Box className="w-screen p-4">
-      <Paper className='p-3 gap-2' sx={{
+    <Box className="w-screen p-4 flex flex-col items-center  gap-2 ">
+      <Paper className='p-3 gap-2 w-full' sx={{
         display: 'flex',
         flexDirection: 'column',
       }
     }>
-      <Typography variant='h5'>Purchase History </Typography>
+      <Typography variant='h5' gutterBottom>Purchase History </Typography>
       {demoDataArray.map((listingData, index) => (
         <ListingCard key={index} listingData={listingData} variant={'vendor'} sold />
       ))}

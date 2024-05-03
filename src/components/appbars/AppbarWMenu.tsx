@@ -19,6 +19,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import HomeIcon from '@mui/icons-material/Home';
 
 const AppbarWMenu = ({
   title,
@@ -165,7 +166,7 @@ const AppbarWMenu = ({
           color="inherit"
           sx={{ mr: 2 }}
         >
-          <ArrowBackIcon />
+          <HomeIcon />
         </IconButton>}
 
         {startIcon && <IconButton

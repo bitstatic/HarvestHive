@@ -30,7 +30,7 @@ const page = () => {
     <>
     <AppbarWMenu
       title="Edit Profile"
-      primaryOption='home'
+      primaryOption='back'
     />
     <Box className='flex flex-col mt-8 gap-4 items-center'> 
       <Avatar sx={{ width: 100, height: 100 }}  />
@@ -42,7 +42,7 @@ const page = () => {
           Farmer
         </Typography>
       </Box>
-      <Box className='w-full p-4'>
+      <Box className='w-screen p-4 flex flex-col items-center  gap-2 '>
         <Paper className='p-4 gap-4 cener-col w-full'>
           <Box
             component="form"
